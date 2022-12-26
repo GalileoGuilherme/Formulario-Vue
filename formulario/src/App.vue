@@ -18,7 +18,7 @@
 
         <label>Opniao: </label>
         <textarea v-model="opiniao"></textarea>
-        <br><br>
+        <br><br><hr>
 
         <label>Tecnologias</label><br>
         <span><input type="checkbox" value="JavaScript" v-model="tecnologias"/>JavaScript</span><br>
@@ -28,9 +28,29 @@
         <span><input type="checkbox" value="VueJs" v-model="tecnologias"/>VueJs</span><br>
 
       </form>
-    </div>
-    <hr>
-    <div class="item">
+      <br><hr><br>
+
+      <label>Qual o tipo de contratação</label>
+      <select v-model="tipoSelecionado">
+        <option v-for="item in tipos" :key="item.id" value="item.nome">{{ item.nome }}</option>        
+      </select><br><br>
+
+      
+    </div><br><hr><br>
+
+    <label>Qual seu nivel?</label>
+    <span><input type="radio" value="basico" v-model="nivel"/>Básico</span>
+    <span><input type="radio" value="intermediario" v-model="nivel"/>Intermediário</span>
+    <span><input type="radio" value="avancado" v-model="nivel"/>Avançado</span>
+    <br>
+    
+
+    <hr><br>
+
+    <button @click.prevent="enviar">Enviar</button>
+
+    <br><hr>
+    <div class="item" v-show="resultado">
       <h2>Usuario Cadastrado</h2>
 
       <label>Nome: {{ user.nome }}</label><br>
@@ -42,11 +62,17 @@
       <label>Opiniao: {{ opiniao }}</label><br>
 
       <label>Tecnologias: {{ tecnologias }}</label><br>
+      
 
       <ul>
         <li v-for="tech in tecnologias" :key="tech">{{ tech }}</li>     
-      </ul>
+      </ul><br>
 
+      <label>Tipo de Contratação: {{ tipoSelecionado }}</label><br>
+
+      <label>Nível atual: {{ nivel }}</label>
+
+      
     </div>
   </div>
 
@@ -63,7 +89,20 @@
           qtdFunc: 0
         },
         opiniao: '',
-        tecnologias: []
+        tecnologias: [],
+        tipos: [
+          {id: 1, nome: 'Freelancer'},
+          {id: 2, nome: 'CLT'},
+          {id: 3, nome: 'PJ'}
+        ],
+        tipoSelecionado: 'Freelancer',
+        nivel: 'basico',
+        resultado: false
+      }
+    },
+    methods: {
+      enviar(){
+        this.resultado = true;
       }
     }
   }
